@@ -50,7 +50,7 @@ function getTags(strUser, arrPosts) {
         } //If resteem (i.e. author != strUser), don't worry about tags
     }
 
-    //now sort the tag objects in mArrTagObjects via their count value.
+    //sort the tag objects in mArrTagObjects via their count value.
     mArrTagObjects.sort(function(a,b){return b.count - a.count});
 
     //truncate array to top three tags
@@ -67,10 +67,10 @@ function getTags(strUser, arrPosts) {
         var btn3 = document.getElementById("btnTag3");
         var btnResteems = document.getElementById("btnResteems");
         
-        btn1.value = capitalizeFirstLetter(mArrTagObjects[0].name);// + " | " + mArrTagObjects[0].count;
-        btn2.value = capitalizeFirstLetter(mArrTagObjects[1].name);// + " | " + mArrTagObjects[1].count;
-        btn3.value = capitalizeFirstLetter(mArrTagObjects[2].name);// + " | " + mArrTagObjects[2].count; 
-        btnResteems.value = "Resteems";// + " | " + mArrTagObjects[2].count; 
+        btn1.value = capitalizeFirstLetter(mArrTagObjects[0].name);
+        btn2.value = capitalizeFirstLetter(mArrTagObjects[1].name);
+        btn3.value = capitalizeFirstLetter(mArrTagObjects[2].name);
+        btnResteems.value = "Resteems";
 
         btn1.setAttribute("data-tag", mArrTagObjects[0].name);
         btn2.setAttribute("data-tag", mArrTagObjects[1].name);
@@ -87,7 +87,6 @@ function getTags(strUser, arrPosts) {
         btn3.style.display = "inline-block";
         btnResteems.style.display = "inline-block";
 
-        //code for resteems here.
     }
     else {
         //not enough tags to use ***Nb, can add code to handle 2 tags here.
