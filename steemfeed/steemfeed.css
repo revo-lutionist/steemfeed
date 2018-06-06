@@ -1,0 +1,54 @@
+body {
+    font-family: "Agency FB", Helvetica, Arial, sans-serif;
+}
+
+#output {
+    width: 700px;
+    margin: auto;
+    padding: 5px 40px;
+}
+
+#heading {
+    width: 290px;
+    margin: auto;
+    padding-bottom: 5px;
+    font-size: 3.5em;
+    letter-spacing: 0.2em;
+}
+
+.outerContainer {
+    width: 660px;
+    margin: auto; 
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.imgContainer {
+    width: 640;
+    height: 400px;
+    margin-bottom: 3px;
+    background-color: #B0B0B0;
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.title {
+    color: rgb(61, 61, 61);
+    font-size: 1em;
+}
+
+a:link {
+    color: rgb(61, 61, 61);
+}
+
+a:visited {
+    color: rgb(104, 104, 104);
+}
+
+a:hover {
+    color: rgb(24, 24, 24);
+}
