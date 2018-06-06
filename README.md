@@ -1,7 +1,7 @@
 # steemfeed_firefox
-Filter by tags on steemit.com blogs
+_Filter by tags on steemit.com blogs_
 
-_This extension is for the Firefox browser_
+This extension is for the Firefox browser
 
 Available at https://addons.mozilla.org/en-US/firefox/addon/steemfeed/
 
