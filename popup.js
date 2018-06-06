@@ -28,7 +28,7 @@ function displayCategories() {
             query.tag = user; 
             steem.api.getDiscussionsByBlog(query, (err, res) => {
             mArrPosts = res;
-            console.log(mArrPosts.lenth + " records returned");
+            console.log(mArrPosts.length + " records returned");
             getTags(user, res);
             });    
         });
