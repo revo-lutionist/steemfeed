@@ -1,12 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     var arrPosts = JSON.parse(window.localStorage.getItem("posts"));
     var divOutput = document.getElementById("output");
-    //var count = 0;
 
     for (var objPost of arrPosts) {
         objPost.image = objPost.image.replace(/\(/g, "\\(");
         objPost.image = objPost.image.replace(/\)/g, "\\)");
-        //console.log(objPost.image);
 
         var divOuterContainer = document.createElement("div");
         var divImgContainer = document.createElement("div");
