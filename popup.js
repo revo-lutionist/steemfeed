@@ -1,4 +1,4 @@
-const POST_LIMIT = 40;
+const POST_LIMIT = 50;
 
 mArrTags = [];
 mArrTagObjects = [];
@@ -28,7 +28,6 @@ function displayCategories() {
             query.tag = user; 
             steem.api.getDiscussionsByBlog(query, (err, res) => {
             mArrPosts = res;
-            console.log(mArrPosts.length + " records returned");
             getTags(user, res);
             });    
         });
@@ -38,20 +37,31 @@ function displayCategories() {
 function getTags(strUser, arrPosts) {
     var arrPostTags = [];
 
-    for (var objRecord of arrPosts) {
+        for (var objRecord of arrPosts) {
+            var count = 0;
 
-        if (objRecord.author == strUser) {
-            console.log("inside getTags, not a resteem.  Author: " + objRecord.author);
-            arrPostTags = JSON.parse(objRecord.json_metadata).tags;
-
-            for (var strTag of arrPostTags) {
-                addTag(strTag);
-            }
-        } //If resteem (i.e. author != strUser), don't worry about tags
-    }
+            if (objRecord.author == strUser) {
+                arrPostTags = JSON.parse(objRecord.json_metadata).tags;
+    
+                for (var strTag of arrPostTags) {
+                    count++;
+                    if (count < 3) {        //only looking at first two tags
+                        addTag(strTag);
+                    }
+                    else {
+                        break;
+                    }
+                    
+                }
+            } //If resteem (i.e. author != strUser), don't worry about tags
+        }
 
     //sort the tag objects in mArrTagObjects via their count value.
     mArrTagObjects.sort(function(a,b){return b.count - a.count});
+
+    for (var obj of mArrTagObjects) {
+        console.log(obj.name + ": " + obj.count);
+    }
 
     //truncate array to top three tags
     if (mArrTagObjects.length > 2) {
@@ -71,6 +81,10 @@ function getTags(strUser, arrPosts) {
         btn2.value = capitalizeFirstLetter(mArrTagObjects[1].name);
         btn3.value = capitalizeFirstLetter(mArrTagObjects[2].name);
         btnResteems.value = "Resteems";
+
+        console.log(mArrTagObjects[0].count);
+        console.log(mArrTagObjects[1].count);
+        console.log(mArrTagObjects[2].count);
 
         btn1.setAttribute("data-tag", mArrTagObjects[0].name);
         btn2.setAttribute("data-tag", mArrTagObjects[1].name);
@@ -105,12 +119,13 @@ function addTag(str) {
     else {
         for (var strTag of mArrTags) {
             if (strTag == str) {
-                //tag already in tag array, so increment the count in the relevant tag object (held in mArrTagObjects)
+                //tag already in tag array, so increment the count in the relevant tag object (held in mArrTagObjects), then break out of loop
                 for (var objTag of mArrTagObjects) {
                     if (objTag.name == str) {
                         objTag.count += 1;
                     }
                 }
+
                 blnNew = false;
                 break;
             }
@@ -126,7 +141,6 @@ function addTag(str) {
 function displayPosts() {
     var arrPostTags = [];
     var strTag = this.getAttribute("data-tag");
-    console.log(strTag);
 
     if (strTag == "resteems") {
         for (var objPost of mArrPosts) {
@@ -161,6 +175,9 @@ function createSummary(post) {
 
     if (JSON.parse(post.json_metadata).image) {
         img = JSON.parse(post.json_metadata).image[0];
+    }
+    else {
+        img = "/images/no_image.png";
     }
     var ttl = post.root_title;
     var authr = post.author;
