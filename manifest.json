@@ -2,12 +2,15 @@
     "manifest_version": 2,
  
     "name": "SteemFeed",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Filter by tags on steemit.com blogs",
     "permissions": [
         "activeTab",
         "storage"
     ],
+    "background": {
+        "scripts": ["background.js"]
+    },
     "page_action": {
         "default_title": "SteemFeed",
         "default_popup": "popup.html",

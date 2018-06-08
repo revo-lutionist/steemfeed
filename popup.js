@@ -1,4 +1,4 @@
-const POST_LIMIT = 50;
+const POST_LIMIT = 10;
 
 mArrTags = [];
 mArrTagObjects = [];
@@ -45,7 +45,7 @@ function getTags(strUser, arrPosts) {
     
                 for (var strTag of arrPostTags) {
                     count++;
-                    if (count < 3) {        //only looking at first two tags
+                    if (count < 4) {        //only looking at first three tags
                         addTag(strTag);
                     }
                     else {
@@ -63,47 +63,49 @@ function getTags(strUser, arrPosts) {
         console.log(obj.name + ": " + obj.count);
     }
 
-    //truncate array to top three tags
-    if (mArrTagObjects.length > 2) {
-        mArrTagObjects.length = 3;
+    //truncate array to top four tags
+    if (mArrTagObjects.length > 3) {
+        mArrTagObjects.length = 4;
     }
 
     //stop loader
     document.getElementById("loader").style.display = "none";
     
-    if (mArrTagObjects.length == 3) {
+    if (mArrTagObjects.length == 4) {
         var btn1 = document.getElementById("btnTag1");
         var btn2 = document.getElementById("btnTag2");
         var btn3 = document.getElementById("btnTag3");
+        var btn4 = document.getElementById("btnTag4");
         var btnResteems = document.getElementById("btnResteems");
+        var btnHideResteems = document.getElementById("btnHideResteems");
         
         btn1.value = capitalizeFirstLetter(mArrTagObjects[0].name);
         btn2.value = capitalizeFirstLetter(mArrTagObjects[1].name);
         btn3.value = capitalizeFirstLetter(mArrTagObjects[2].name);
-        btnResteems.value = "Resteems";
-
-        console.log(mArrTagObjects[0].count);
-        console.log(mArrTagObjects[1].count);
-        console.log(mArrTagObjects[2].count);
+        btn4.value = capitalizeFirstLetter(mArrTagObjects[3].name);
 
         btn1.setAttribute("data-tag", mArrTagObjects[0].name);
         btn2.setAttribute("data-tag", mArrTagObjects[1].name);
         btn3.setAttribute("data-tag", mArrTagObjects[2].name);
+        btn4.setAttribute("data-tag", mArrTagObjects[3].name);
         btnResteems.setAttribute("data-tag", "resteems");
 
         btn1.addEventListener("click", displayPosts);
         btn2.addEventListener("click", displayPosts);
         btn3.addEventListener("click", displayPosts);
+        btn4.addEventListener("click", displayPosts);
         btnResteems.addEventListener("click", displayPosts);
+        btnHideResteems.addEventListener("click", messageBackground);
 
         btn1.style.display = "inline-block";
         btn2.style.display = "inline-block";
         btn3.style.display = "inline-block";
+        btn4.style.display = "inline-block";
         btnResteems.style.display = "inline-block";
-
+        btnHideResteems.style.display = "inline-block";
     }
     else {
-        //not enough tags to use ***Nb, can add code to handle 2 tags here.
+        //not enough tags to use ***Nb, can add code to handle 3 tags here.
         document.getElementById("popup").innerHTML = "Not enough tags";
     }
     
@@ -189,4 +191,9 @@ function createSummary(post) {
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+//send message to background script to inject content script to hide resteems on steemit.com
+function messageBackground() {
+    chrome.runtime.sendMessage(true);
 }

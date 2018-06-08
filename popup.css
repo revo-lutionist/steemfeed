@@ -1,4 +1,5 @@
 #popup {
+    /* display: flex; */
     width: auto;
     height: auto;
 }
@@ -20,25 +21,33 @@
     100% { transform: rotate(360deg); }
 }
 
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
 input {
+    flex-grow: 1;
     display: none;
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 9px 20px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    font-size: 14px;
+    margin: 3px;
+    cursor: pointer; 
 }
 
 input:hover {
     filter: brightness(110%);
 }
 
-#btnTag1 { background-color: #4CAF50; }
-#btnTag2 { background-color: #f44336; }
-#btnTag3 { background-color: #008CBA; }
-#btnResteems { background-color: #323232; color: #FFFFFF; }
+#btnTag1 { background-color: #54718A; }
+#btnTag2 { background-color: #54718A; }
+#btnTag3 { background-color: #54718A; }
+#btnTag4 { background-color: #54718A; } /* #008CBA 36A6CA */
+#btnResteems { background-color: #7C7C7C; color: #FFFFFF; }
+#btnHideResteems { background-color: #EC645B; }
 
