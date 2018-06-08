@@ -1,4 +1,4 @@
-const POST_LIMIT = 10;
+const POST_LIMIT = 50;
 
 mArrTags = [];
 mArrTagObjects = [];
