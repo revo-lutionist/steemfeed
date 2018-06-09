@@ -2,7 +2,7 @@
     "manifest_version": 2,
  
     "name": "SteemFeed",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "description": "Filter by tags on steemit.com blogs",
     "permissions": [
         "activeTab",
@@ -20,8 +20,8 @@
             "48": "images/icon48.png",
             "128": "images/icon128.png"
           },
-        "show_matches": ["https://steemit.com/@*"],
-        "hide_matches": ["https://steemit.com/@*/*"]
+        "show_matches": ["https://steemit.com/@*", "https://steemit.com/@*/feed"],
+        "hide_matches": ["https://steemit.com/@*/", "https://steemit.com/*/*/"]
     },
     "applications": {
         "gecko": {
