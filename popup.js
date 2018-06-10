@@ -7,9 +7,6 @@ mArrDisplayPosts = [];
 mUser = "";
 
 document.addEventListener("DOMContentLoaded", () => {
-    //start loader
-    document.getElementById("loader").style.display = "block";
-
     displayCategories();
 });
 
@@ -21,16 +18,25 @@ function displayCategories() {
     };
 
     chrome.tabs.query({active:true,currentWindow:true}, (tab) => {
-        var user = tab[0].url.split("@")[1];
-        mUser = user;
-        steem.api.getAccountsAsync([user])
-        .then((result) => {
-            query.tag = user; 
-            steem.api.getDiscussionsByBlog(query, (err, res) => {
-            mArrPosts = res;
-            getTags(user, res);
-            });    
-        });
+        //if on blog page e.g. steemit.com/@revo, get tags etc.
+        if (!tab[0].url.toLowerCase().includes("feed")) {
+            //start loader
+            document.getElementById("loader").style.display = "block";
+            
+            var user = tab[0].url.split("@")[1];
+            mUser = user;
+            steem.api.getAccountsAsync([user])
+            .then((result) => {
+                query.tag = user; 
+                steem.api.getDiscussionsByBlog(query, (err, res) => {
+                mArrPosts = res;
+                getTags(user, res);
+                });    
+            });
+        } //else on personal feed, so just show "Hide Resteems" option
+        else {
+            showBtnHide();
+        }
     }); 
 }
 
@@ -193,7 +199,14 @@ function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function showBtnHide() {
+    var btnHideResteems = document.getElementById("btnHideResteems");
+    btnHideResteems.addEventListener("click", messageBackground);
+    btnHideResteems.style.display = "inline-block";
+}
+
 //send message to background script to inject content script to hide resteems on steemit.com
 function messageBackground() {
     chrome.runtime.sendMessage(true);
 }
+
